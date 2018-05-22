@@ -18,7 +18,6 @@ The goals / steps of this project are the following:
 [image2]: ./examples/S2S.jpg
 [image3]: ./examples/words.jpg
 [image4]: ./examples/S2S_2.jpg
-[image5]: ./examples/decoder.jpg
 
 ### Data Exploration and Preprocessing
 
