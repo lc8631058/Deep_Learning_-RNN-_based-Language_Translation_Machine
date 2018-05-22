@@ -17,7 +17,7 @@ The goals / steps of this project are the following:
 [image1]: ./examples/RNN_models.jpg
 [image2]: ./examples/S2S.jpg
 [image3]: ./examples/words.jpg
-[image4]: ./examples/encoder.jpg
+[image4]: ./examples/S2S_2.jpg
 [image5]: ./examples/decoder.jpg
 
 ### Data Exploration and Preprocessing
@@ -103,8 +103,7 @@ Supposing we have such input sequence, we want to translate it to target.
 
 So our encode and decode process looks like:
 ![alt text][image4]
-![alt text][image5]
-
+At final step of decode, we will add fully connected layer, to specify which words should be the most likely output.
 
 
 #### 2. Word Embedding
@@ -114,11 +113,9 @@ When you're dealing with words in text, you end up with tens of thousands of cla
 
 To solve this problem and greatly increase the efficiency of our networks, we use what are called embeddings. Embeddings are just a fully connected layer like you've seen before. We call this layer the embedding layer and the weights are embedding weights. We skip the multiplication into the embedding layer by instead directly grabbing the hidden layer values from the weight matrix. We can do this because the multiplication of a one-hot encoded vector with a matrix returns the row of the matrix corresponding the index of the "on" input unit.
 
-![alt text][image2]
 
 Instead of doing the matrix multiplication, we use the weight matrix as a lookup table. We encode the words as integers, for example "heart" is encoded as 958, "mind" as 18094. Then to get hidden layer values for "heart", you just take the 958th row of the embedding matrix. This process is called an embedding lookup and the number of hidden units is the embedding dimension.
 
-![alt text][image3]
 
 Embeddings aren't only used for words of course. You can use them for any model where you have a massive number of classes. A particular type of model called Word2Vec uses the embedding layer to find vector representations of words that contain semantic meaning.
 
@@ -126,10 +123,6 @@ Function `get_embed`: Apply embedding to input_data using TensorFlow. Return the
 
 #### 3. Build RNN
 
-I created a RNN Cell in the get_init_cell() function. Time to use the cell to create a RNN.
-Build the RNN using the tf.nn.dynamic_rnn()
-Apply the name "final_state" to the final state using tf.identity()
-Return the outputs and final_state state in the following tuple (Outputs, FinalState)
 
 ### Neural Network Training
 
@@ -139,29 +132,26 @@ I used the following hyperparameters to train my network, these parameters are c
 
 ```python
 # Number of Epochs
-num_epochs = 300
+epochs = 10
 # Batch Size
-batch_size = 250
+batch_size = 128
 # RNN Size
-rnn_size = 500
-# Embedding Dimension Size
-embed_dim = 256
-# Sequence Length
-seq_length = 20
+rnn_size = 256
+# Number of Layers
+num_layers = 2
+# Embedding Size
+encoding_embedding_size = 256
+decoding_embedding_size = 256
 # Learning Rate
 learning_rate = 0.001
-# Show stats for every n number of batches
-show_every_n_batches = 7
-
-# number of lstm layers
-num_layers = 2
+# Dropout Keep Probability
+keep_probability = 0.5
+display_step = 30
 ```
 
 ### Test the trained model
 
-Generate TV Script:
-
-I give some input words：'moe_szyslak', and my model generate something like this, they looks good:
+ Trans  sSentence
 
 ```
 moe_szyslak:(into phone) gotcha ya down for forty bucks. good luck your eminence.
