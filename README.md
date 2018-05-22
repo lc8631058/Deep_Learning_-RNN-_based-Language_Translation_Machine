@@ -15,9 +15,10 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./examples/RNN_models.jpg
-[image2]: ./examples/lookup_matrix.png
-[image3]: ./examples/tokenize_lookup.png
-
+[image2]: ./examples/S2S.jpg
+[image3]: ./examples/words.jpg
+[image4]: ./examples/encoder.jpg
+[image5]: ./examples/decoder.jpg
 
 ### Data Exploration and Preprocessing
 
@@ -85,18 +86,31 @@ After that, preprocess all data and save them.
 
 ### 1. Build RNN Cell and Initialize
 
-Stack one or more BasicLSTMCells in a MultiRNNCell.
-The Rnn size should be set using rnn_size
-Initalize Cell State using the MultiRNNCell's zero_state() function
-Apply the name "initial_state" to the initial state using tf.identity()
-Return the cell and initial state in the following tuple (Cell, InitialState)
+The RNN models are normally looks like following:
 
-Above steps are implemented by `get_init_cell` function.
+![alt text][image1]
+
+where many to one represents that the inputs of RNN are many, the ouput is only one element, this normally used in sentiment analysis tasks. And many to many is a common method to build the language translation machine. 
+
+The Sequence to Sequnce model can be simplized as following:
+
+![alt text][image2]
+
+we got 2 RNNs, one received the input sequences, then hands over what it has learned to the second RNN, which start to produce the output sequence. 
+
+Supposing we have such input sequence, we want to translate it to target.
+![alt text][image3]
+
+So our encode and decode process looks like:
+![alt text][image4]
+![alt text][image5]
+
+
 
 #### 2. Word Embedding
 When you're dealing with words in text, you end up with tens of thousands of classes to predict, one for each word. Trying to one-hot encode these words is massively inefficient, you'll have one element set to 1 and the other 50,000 set to 0. The matrix multiplication going into the first hidden layer will have almost all of the resulting values be zero. This a huge waste of computation.
 
-![alt text][image1]
+
 
 To solve this problem and greatly increase the efficiency of our networks, we use what are called embeddings. Embeddings are just a fully connected layer like you've seen before. We call this layer the embedding layer and the weights are embedding weights. We skip the multiplication into the embedding layer by instead directly grabbing the hidden layer values from the weight matrix. We can do this because the multiplication of a one-hot encoded vector with a matrix returns the row of the matrix corresponding the index of the "on" input unit.
 
