@@ -26,24 +26,38 @@ The goals / steps of this project are the following:
 In the cell wth title `Explore the Data`, I show the dataset status like below:
 
 ```python
-Roughly the number of unique words: 11492
-Number of scenes: 262
-Average number of sentences in each scene: 15.248091603053435
-Number of lines: 4257
-Average number of words in each line: 11.50434578341555
+Dataset Stats
+Roughly the number of unique words: 227
+Number of sentences: 137861
+Average number of words in a sentence: 13.225277634719028
 ```
 
 And some sentences from dataset are like:
 
 ```
-Moe_Szyslak: (INTO PHONE) Moe's Tavern. Where the elite meet to drink.
-Bart_Simpson: Eh, yeah, hello, is Mike there? Last name, Rotch.
-Moe_Szyslak: (INTO PHONE) Hold on, I'll check. (TO BARFLIES) Mike Rotch. Mike Rotch. Hey, has anybody seen Mike Rotch, lately?
-Moe_Szyslak: (INTO PHONE) Listen you little puke. One of these days I'm gonna catch you, and I'm gonna carve my name on your back with an ice pick.
-Moe_Szyslak: What's the matter Homer? You're not your normal effervescent self.
-Homer_Simpson: I got my problems, Moe. Give me another one.
-Moe_Szyslak: Homer, hey, you should not drink to forget your problems.
-Barney_Gumble: Yeah, you should only drink to enhance your social skills.
+English sentences 0 to 10:
+new jersey is sometimes quiet during autumn , and it is snowy in april .
+the united states is usually chilly during july , and it is usually freezing in november .
+california is usually quiet during march , and it is usually hot in june .
+the united states is sometimes mild during june , and it is cold in september .
+your least liked fruit is the grape , but my least liked is the apple .
+his favorite fruit is the orange , but my favorite is the grape .
+paris is relaxing during december , but it is usually chilly in july .
+new jersey is busy during spring , and it is never hot in march .
+our least liked fruit is the lemon , but my least liked is the grape .
+the united states is sometimes busy during january , and it is sometimes warm in november .
+
+French sentences 0 to 10:
+new jersey est parfois calme pendant l' automne , et il est neigeux en avril .
+les états-unis est généralement froid en juillet , et il gèle habituellement en novembre .
+california est généralement calme en mars , et il est généralement chaud en juin .
+les états-unis est parfois légère en juin , et il fait froid en septembre .
+votre moins aimé fruit est le raisin , mais mon moins aimé est la pomme .
+son fruit préféré est l'orange , mais mon préféré est le raisin .
+paris est relaxant en décembre , mais il est généralement froid en juillet .
+new jersey est occupé au printemps , et il est jamais chaude en mars .
+notre fruit est moins aimé le citron , mais mon moins aimé est le raisin .
+les états-unis est parfois occupé en janvier , et il est parfois chaud en novembre .
 
 ```
 
@@ -52,29 +66,18 @@ Barney_Gumble: Yeah, you should only drink to enhance your social skills.
 After showing the basic information of dataset, I make the data preprocessing:
 
 ```python 
-Lookup Table
-Tokenize Punctuation
+Text to Word Ids
 ```
 
-The `Lookup Table` contains following functions:
-```python
-Dictionary to go from the words to an id, we'll call vocab_to_int
-Dictionary to go from the id to word, we'll call int_to_vocab
+As I did with other RNNs, I must turn the text into a number so the computer can understand it. In the function text_to_ids(), I'll turn source_text and target_text from words to ids. However, I need to add the <EOS> word id at the end of target_text. This will help the neural network predict when the sentence should end.
+  
+I can get the <EOS> word id by doing:
+  
+```python 
+target_vocab_to_int['<EOS>']
 ```
 
-We'll be splitting the script into a word array using spaces as delimiters. However, punctuations like periods and exclamation marks make it hard for the neural network to distinguish between the word "bye" and "bye!". So the function `token_lookup` returns a dict that will be used to tokenize symbols like `!` into `||Exclamation_Mark||`. Create a dictionary for the following symbols where the symbol is the key and value is the token:
-```python
-Period ( . )
-Comma ( , )
-Quotation Mark ( " )
-Semicolon ( ; )
-Exclamation mark ( ! )
-Question mark ( ? )
-Left Parentheses ( ( )
-Right Parentheses ( ) )
-Dash ( -- )
-Return ( \n )
-```
+I can get other word ids using source_vocab_to_int and target_vocab_to_int.
 
 After that, preprocess all data and save them.
 
