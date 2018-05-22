@@ -151,31 +151,16 @@ display_step = 30
 
 ### Test the trained model
 
- Trans  sSentence
+Sentence Translation:
 
 ```
-moe_szyslak:(into phone) gotcha ya down for forty bucks. good luck your eminence.
-moe_szyslak: sorry, my sweet like is.
-moe_szyslak: homer, i got the right back to the world world the game!(sobs)
-homer_simpson:(to homer, slightly sobs, then i'm a huge loser.
-moe_szyslak: sorry, moe. this is just the name on the middle of moe's.
-homer_simpson: i saw this.
-lenny_leonard: no.
-homer_simpson:(excited) oh you, homer, listen up, lenny.
-lenny_leonard: great. i know, it's a beer, moe.
-lenny_leonard: oh, how can you go up a worthless things who got a step things about bring that the one of the way?
-hans: yeah. no.
+Input
+  Word Ids:      [222, 173, 219, 92, 228, 198, 142]
+  English Words: ['he', 'saw', 'a', 'old', 'yellow', 'truck', '.']
 
-
-homer_simpson: hey, homer.
-moe_szyslak: homer, i can't see you that little girl?
-
-
-kent_brockman:(excited) oh, this is a guy. i got my big thing.(smug chuckle)
-
-
-moe_szyslak:(reading)" the springfield
-
+Prediction
+  Word Ids:      [279, 265, 267, 111, 318, 159, 30, 234, 1]
+  French Words: il a vu un vieux camion janvier . <EOS>
 ```
 
 
@@ -183,4 +168,5 @@ moe_szyslak:(reading)" the springfield
 
 ### Summary
 
-The generated sentences are not always grammatically right, because the word dict size are a little big and by the way I need to use more data to train it, this will be updated later, this is the complete dataset will be used to train my network later: [another dataset](https://www.kaggle.com/wcukierski/the-simpsons-by-the-data).  
+The Tanslation Machine is not used for any sentences until now, because the dataset I used is comparably small, but what import is that the algorithms are right, with better GPU and large amount dataset to train the model, the machine will do better.
+You can train on the [WMT10 French-English corpus](http://www.statmt.org/wmt10/training-giga-fren.tar).  This dataset has more vocabulary and richer in topics discussed.
