@@ -1,20 +1,20 @@
-# **TV_Script_Generation_using_Deep_Learning_RNN** 
+# **Deep_Learning-(RNN)-based-Language_Translation_Machine** 
 
 ---
 
-**TV Script Generation using Deep Learning (RNN)**
+**Deep Learning (RNN) based Language Translation Machine**
 
 The goals / steps of this project are the following:
-* Use the simulator to collect data of good driving behavior
-* Build, a convolution neural network in Keras that predicts steering angles from images
-* Train and validate the model with a training and validation set
+* Use the Sequence to Sequnce model to make language translation
+* First preprocessing the text data
+* Build the sequence-to-sequence model to train with preprocessed data
 * Test that the model successfully drives around track one without leaving the road
 * Summarize the results with a written report
 
 
 [//]: # (Image References)
 
-[image1]: ./examples/one_hot_encoding.png
+[image1]: ./examples/RNN_models.jpg
 [image2]: ./examples/lookup_matrix.png
 [image3]: ./examples/tokenize_lookup.png
 
